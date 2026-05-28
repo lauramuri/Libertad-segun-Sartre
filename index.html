@@ -1,0 +1,1129 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SENA - Guía de Aprendizaje Interactiva: Sartre y la Libertad</title>
+    <!-- Importación de Tailwind CSS para un diseño ágil, moderno y responsive -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Configuración personalizada de Tailwind para extender colores y tipografía Inter -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        sena: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            600: '#16a34a',
+                            700: '#15803d',
+                            800: '#166534',
+                            900: '#14532d',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts: Inter para alta legibilidad en pantallas de todo tipo de dispositivos -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Clases de utilidad personalizadas para asegurar el cumplimiento estricto del WCAG 2.1 */
+        .high-contrast {
+            background-color: #000000 !important;
+            color: #ffffff !important;
+        }
+        .high-contrast .bg-card-contrast {
+            background-color: #121212 !important;
+            border: 2px solid #ffff00 !important;
+            color: #ffffff !important;
+        }
+        .high-contrast .text-accent-contrast {
+            color: #ffff00 !important;
+        }
+        .high-contrast .btn-contrast {
+            background-color: #ffff00 !important;
+            color: #000000 !important;
+            font-weight: bold !important;
+            border: 2px solid #ffffff !important;
+        }
+        .high-contrast .btn-contrast:hover {
+            background-color: #ffffff !important;
+            color: #000000 !important;
+        }
+        .focus-visible:focus {
+            outline: 3px solid #3b82f6;
+            outline-offset: 2px;
+        }
+    </style>
+</head>
+<body class="bg-slate-900 text-slate-100 font-sans min-h-full flex flex-col transition-colors duration-300">
+
+    <!-- Encabezado Principal y Controles de Accesibilidad (WCAG 2.1 / DUA) -->
+    <header class="bg-slate-950 border-b border-slate-800 py-4 px-6 sticky top-0 z-40 transition-colors duration-300" role="banner">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+            <!-- Branding del SENA e Identificación del Curso -->
+            <div class="flex items-center gap-3">
+                <div class="bg-sena-600 p-2 rounded-lg text-white font-bold text-lg focus-visible" tabindex="0" aria-label="Logotipo del SENA">
+                    SENA
+                </div>
+                <div>
+                    <span class="text-xs font-semibold uppercase tracking-wider text-sena-600">Formación Profesional</span>
+                    <h1 class="text-lg font-bold text-slate-100">Guía de Aprendizaje: Filosofía de la Libertad (Sartre)</h1>
+                </div>
+            </div>
+
+            <!-- Controles de progreso general y accesibilidad -->
+            <div class="flex items-center gap-4 flex-wrap justify-center">
+                <!-- Selector de Alto Contraste para debilidad visual -->
+                <button onclick="toggleHighContrast()" id="contrastBtn" class="bg-slate-800 hover:bg-slate-700 text-xs px-3 py-2 rounded-lg font-medium transition-all flex items-center gap-2 border border-slate-700 focus-visible" aria-label="Alternar modo de alto contraste para accesibilidad">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-yellow-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                    </svg>
+                    <span>Alto Contraste</span>
+                </button>
+                
+                <!-- Widget de Gamificación en Tiempo Real: Puntos e Insignias -->
+                <div class="bg-slate-800/80 border border-slate-700/60 rounded-xl px-4 py-1.5 flex items-center gap-3 text-sm">
+                    <span class="text-slate-400 font-medium">Progreso de la sesión:</span>
+                    <div class="w-24 bg-slate-700 h-2.5 rounded-full overflow-hidden">
+                        <div id="sessionProgressBar" class="bg-sena-600 h-full transition-all duration-500" style="width: 25%"></div>
+                    </div>
+                    <span id="progressPercent" class="font-bold text-sena-600">25%</span>
+                </div>
+                
+                <div class="bg-slate-800 border border-slate-700 rounded-xl px-3 py-1.5 flex items-center gap-2 text-sm">
+                    <span class="text-yellow-500">🏆</span>
+                    <span id="globalPoints" class="font-bold">0</span> <span class="text-xs text-slate-400">Puntos (XP)</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Barra de Navegación por Pasos / Stepper Metodológico (Gagné) -->
+    <nav class="bg-slate-950/40 border-b border-slate-800/50 py-3 px-4" aria-label="Navegación de las fases del microaprendizaje">
+        <div class="max-w-5xl mx-auto flex justify-between items-center text-xs md:text-sm overflow-x-auto gap-2">
+            <button onclick="goToMicro(1)" id="step1" class="flex items-center gap-2 px-3 py-2 rounded-lg font-bold transition-all text-sena-600 bg-sena-600/10 border border-sena-600/30 focus-visible" aria-current="step">
+                <span class="w-5 h-5 rounded-full bg-sena-600 text-white flex items-center justify-center text-[10px]">1</span>
+                <span>Micro 1: El Reto (Diagnóstica)</span>
+            </button>
+            <div class="h-px bg-slate-800 flex-1 min-w-[20px]"></div>
+            <button onclick="goToMicro(2)" id="step2" class="flex items-center gap-2 px-3 py-2 rounded-lg font-medium transition-all text-slate-400 hover:text-slate-100 hover:bg-slate-800 focus-visible">
+                <span class="w-5 h-5 rounded-full bg-slate-800 text-slate-400 flex items-center justify-center text-[10px]">2</span>
+                <span>Micro 2: Contenido (Formativa)</span>
+            </button>
+            <div class="h-px bg-slate-800 flex-1 min-w-[20px]"></div>
+            <button onclick="goToMicro(3)" id="step3" class="flex items-center gap-2 px-3 py-2 rounded-lg font-medium transition-all text-slate-400 hover:text-slate-100 hover:bg-slate-800 focus-visible">
+                <span class="w-5 h-5 rounded-full bg-slate-800 text-slate-400 flex items-center justify-center text-[10px]">3</span>
+                <span>Micro 3: Aplicación (Decisión)</span>
+            </button>
+            <div class="h-px bg-slate-800 flex-1 min-w-[20px]"></div>
+            <button onclick="goToMicro(4)" id="step4" class="flex items-center gap-2 px-3 py-2 rounded-lg font-medium transition-all text-slate-400 hover:text-slate-100 hover:bg-slate-800 focus-visible">
+                <span class="w-5 h-5 rounded-full bg-slate-800 text-slate-400 flex items-center justify-center text-[10px]">4</span>
+                <span>Micro 4: Certificación (LCH 001)</span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Contenedor Principal de la Guía de Aprendizaje -->
+    <main class="flex-grow p-4 md:p-8 max-w-5xl mx-auto w-full" id="mainContent">
+
+        <!-- ================= MICRO 1: EL RETO Y EVALUACIÓN DIAGNÓSTICA (5 minutos) ================= -->
+        <section id="micro1" class="space-y-6 transition-all duration-300 block">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border-b border-slate-800 pb-4">
+                <div>
+                    <span class="text-xs font-bold text-sena-600 uppercase tracking-widest">Fase de Exploración Diagnóstica</span>
+                    <h2 class="text-2xl font-black text-slate-100 md:text-3xl">Micro 1: El Reto y la Evaluación Inicial</h2>
+                </div>
+                <div class="bg-sena-600/10 text-sena-600 text-xs px-3 py-1.5 rounded-full border border-sena-600/20 font-bold flex items-center gap-1.5">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    Duración recomendada: 5 Minutos
+                </div>
+            </div>
+
+            <!-- Ficha Técnica de la Microsesión (Contextualización del Ambiente Pluritecnológico) -->
+            <div class="bg-slate-950/60 border border-slate-800/80 rounded-xl p-4 text-xs text-slate-400 space-y-2">
+                <p class="font-bold text-slate-300 uppercase tracking-wider text-[10px]">Ficha de Caracterización de la Microsesión:</p>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                    <div><strong>Ambiente de Formación:</strong> Ambiente pluritecnológico con conectividad e interactividad web.</div>
+                    <div><strong>Estrategia Didáctica:</strong> Aprendizaje Basado en Retos y Diseño Instruccional Guiado (Gagné).</div>
+                    <div><strong>Evidencia Requerida:</strong> Desempeño y producto en simulador existencial (LCH 001).</div>
+                </div>
+            </div>
+
+            <!-- Estímulo del Sector Productivo / Hecho Histórico Trascendente -->
+            <div class="bg-gradient-to-br from-slate-950 to-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-4 bg-card-contrast">
+                <div class="flex items-center gap-2 text-amber-500 font-bold text-sm">
+                    <span>💡</span>
+                    <span>¿SABÍAS QUE EL EXISTENCIALISMO DE SARTRE CONVULSIONÓ A TODA UNA ÉPOCA BÉLICA?</span>
+                </div>
+                <p class="text-slate-300 leading-relaxed text-sm md:text-base">
+                    Sartre plantea su visión en un mundo convulsionado por la agresión totalitaria del siglo XX. En una época en la que el desarrollo tecnológico y la maquinización amenazaban con "aplastar al yo" y reducir al individuo a un número intercambiable en la cadena productiva, el existencialismo surgió como una reivindicación del derecho inalienable de elección del individuo, forzando la pregunta crucial: ¿cómo asimilar la técnica moderna sin abdicar la libertad?
+                </p>
+                <div class="bg-slate-900/50 p-4 rounded-xl border border-slate-800 text-xs text-slate-400 italic">
+                    "La libertad humana precede a la esencia del hombre y la hace posible... no hay ninguna diferencia entre el ser del hombre y su ser libre." — Sartre: Libertad.
+                </div>
+            </div>
+
+            <!-- EL RETO DEL DÍA (Card de Evaluación Diagnóstica Inicial - No asigna puntos, estimula saberes) -->
+            <div class="bg-amber-600/10 border-2 border-amber-500/30 rounded-2xl p-6 space-y-4 bg-card-contrast relative overflow-hidden" role="region" aria-label="Evaluación Diagnóstica Inicial: El Dilema de Mateo">
+                <div class="absolute top-0 right-0 w-32 h-32 bg-amber-500/5 rounded-full blur-2xl pointer-events-none"></div>
+                <div class="flex items-center gap-3">
+                    <div class="bg-amber-500 text-slate-950 p-2.5 rounded-xl font-black text-xl" aria-hidden="true">
+                        🚨
+                    </div>
+                    <div>
+                        <span class="text-[10px] uppercase font-bold tracking-widest text-amber-500">Evaluación Diagnóstica Inicial</span>
+                        <h3 class="text-lg font-bold text-amber-500 text-accent-contrast">El Desafío del Día: El Dilema de Mateo</h3>
+                    </div>
+                </div>
+                <p class="text-sm text-slate-300 leading-relaxed">
+                    Mateo se encuentra ante un abismo ético durante la guerra: si se une a las filas armadas, asume la responsabilidad total del combate; si huye, asume su cobardía como una decisión soberana. Sabe que la inacción es, en sí misma, otra elección. Mateo comprende de forma angustiosa la fórmula de Sartre: <span class="text-amber-400 text-accent-contrast font-semibold italic">"Estoy condenado a decidir sin apelación posible."</span>
+                </p>
+                
+                <div class="border-t border-amber-500/20 pt-4 mt-2">
+                    <label id="diagnostic-label" class="text-xs font-bold text-amber-500 text-accent-contrast uppercase tracking-wider block mb-2">
+                        Sondeo Diagnóstico (Criterio WCAG 2.5.3 - Nombre Accesible): ¿Qué define principalmente tu postura ética frente a una encrucijada laboral o técnica difícil?
+                    </label>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-3" role="radiogroup" aria-labelledby="diagnostic-label">
+                        <button onclick="submitDiagnostic('A')" class="bg-slate-900 hover:bg-slate-800 text-slate-300 text-left p-3 rounded-xl border border-slate-700 hover:border-amber-500 text-xs transition-all focus-visible" role="radio" aria-checked="false">
+                            <strong>A)</strong> Atribuir el resultado a las circunstancias y normas ("No tenía otra opción").
+                        </button>
+                        <button onclick="submitDiagnostic('B')" class="bg-slate-900 hover:bg-slate-800 text-slate-300 text-left p-3 rounded-xl border border-slate-700 hover:border-amber-500 text-xs transition-all focus-visible" role="radio" aria-checked="false">
+                            <strong>B)</strong> Asumir la angustia y hacerme totalmente responsable de la decisión y sus efectos.
+                        </button>
+                        <button onclick="submitDiagnostic('C')" class="bg-slate-900 hover:bg-slate-800 text-slate-300 text-left p-3 rounded-xl border border-slate-700 hover:border-amber-500 text-xs transition-all focus-visible" role="radio" aria-checked="false">
+                            <strong>C)</strong> Postergar la acción, creyendo que así no asumo ninguna postura ética.
+                        </button>
+                    </div>
+                    
+                    <!-- Retroalimentación diagnóstica con mensaje neutral de agradecimiento (ARIA Live) -->
+                    <div id="diagnostic-feedback" class="hidden mt-4 p-4 rounded-xl text-xs bg-slate-900 border border-slate-800 text-slate-300 leading-relaxed" aria-live="polite"></div>
+                </div>
+            </div>
+
+            <!-- VIDEO DE APOYO ASOCIADO AL RETO DEL DÍA -->
+            <div class="bg-slate-950 border border-slate-800 rounded-2xl p-6 space-y-4 bg-card-contrast">
+                <div class="flex items-center gap-2.5 text-amber-500">
+                    <span class="text-xl" aria-hidden="true">🎥</span>
+                    <h3 class="text-md font-bold text-slate-200 text-accent-contrast">Contextualización en Video: El Dilema de Mateo</h3>
+                </div>
+                <p class="text-xs text-slate-300 leading-relaxed">
+                    Visualiza este fragmento audiovisual que retrata el peso de las decisiones situadas en tiempos de crisis histórica, ilustrando el "desamparo" existencial analizado en la obra original de Sartre.
+                </p>
+                <div class="relative overflow-hidden rounded-xl border border-slate-800 bg-slate-900/40 p-1 flex justify-center items-center">
+                    <video 
+                        class="w-full h-auto rounded-lg shadow-lg focus-visible aspect-video bg-black/50" 
+                        controls 
+                        preload="metadata" 
+                        poster="https://placehold.co/800x450/0f172a/f59e0b?text=El+Dilema+de+Mateo" 
+                        aria-label="Video representativo sobre las decisiones libres y la responsabilidad según Sartre. El dilema de Mateo."
+                    >
+                        <source src="VIDEO\WhatsApp Video 2026-05-28 at 12.58.48 PM.mp4" type="video/mp4">
+                        Tu navegador no soporta la reproducción directa del video local. Comprueba que el archivo se encuentre dentro de la carpeta local 'VIDEO'.
+                    </video>
+                </div>
+            </div>
+            
+            <div class="flex justify-end pt-4">
+                <button onclick="goToMicro(2)" class="bg-sena-600 hover:bg-sena-700 text-white font-bold text-sm px-6 py-2.5 rounded-xl transition-all shadow-lg focus-visible">
+                    Iniciar Contenidos &rarr;
+                </button>
+            </div>
+        </section>
+
+        <!-- ================= MICRO 2: EL CONTENIDO Y EVALUACIÓN FORMATIVA (10 minutos) ================= -->
+        <!-- Objetivos Pedagógicos: Informar objetivos de aprendizaje y presentar el material con orientación instructiva (Momentos 2, 4 y 5 de Gagné) -->
+        <section id="micro2" class="space-y-6 transition-all duration-300 hidden">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border-b border-slate-800 pb-4">
+                <div>
+                    <span class="text-xs font-bold text-sena-600 uppercase tracking-widest">Fase de Conceptuación y Formación</span>
+                    <h2 class="text-2xl font-black text-slate-100 md:text-3xl">Micro 2: El Núcleo Existencialista</h2>
+                </div>
+                <div class="bg-sena-600/10 text-sena-600 text-xs px-3 py-1.5 rounded-full border border-sena-600/20 font-bold flex items-center gap-1.5">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    Duración recomendada: 10 Minutos
+                </div>
+            </div>
+
+            <!-- Declaración de Competencia SENA (Satisface requisitos metodológicos) -->
+            <div class="bg-slate-950 border border-slate-800 p-4 rounded-xl flex items-start gap-3 bg-card-contrast">
+                <span class="text-sena-600 text-lg" aria-hidden="true">🎯</span>
+                <div>
+                    <h4 class="text-xs font-bold uppercase tracking-wider text-slate-400">Competencia a Lograr:</h4>
+                    <p class="text-sm text-slate-200">Analizar dilemas existenciales y éticos a partir de la ontología sartreana para fortalecer la toma de decisiones autónomas y el proyecto de vida del aprendiz.</p>
+                </div>
+            </div>
+
+            <!-- Sistema de Pestañas Interactivas de Teoría (WCAG 2.1 - Accesibles por Teclado) -->
+            <div class="bg-slate-950 border border-slate-800 rounded-2xl p-6 space-y-6 bg-card-contrast">
+                <div class="flex border-b border-slate-800 overflow-x-auto gap-2" role="tablist" aria-label="Temas teóricos de Jean-Paul Sartre">
+                    <button onclick="switchTab('tab1')" id="btn-tab1" class="px-4 py-2 text-sm font-bold border-b-2 border-sena-600 text-sena-600 transition-all focus-visible whitespace-nowrap" role="tab" aria-selected="true" aria-controls="panel-tab1">
+                        1. Las Regiones del Ser
+                    </button>
+                    <button onclick="switchTab('tab2')" id="btn-tab2" class="px-4 py-2 text-sm font-medium border-b-2 border-transparent text-slate-400 hover:text-slate-100 transition-all focus-visible whitespace-nowrap" role="tab" aria-selected="false" aria-controls="panel-tab2">
+                        2. Mala Fe vs. Angustia
+                    </button>
+                    <button onclick="switchTab('tab3')" id="btn-tab3" class="px-4 py-2 text-sm font-medium border-b-2 border-transparent text-slate-400 hover:text-slate-100 transition-all focus-visible whitespace-nowrap" role="tab" aria-selected="false" aria-controls="panel-tab3">
+                        3. Acción vs. Desvelamiento
+                    </button>
+                </div>
+
+                <!-- Pestaña 1: Las Regiones del Ser -->
+                <div id="panel-tab1" class="space-y-4" role="tabpanel" aria-labelledby="btn-tab1">
+                    <h3 class="text-lg font-bold text-slate-200">La Ontología de Sartre: ¿Cómo se divide el universo?</h3>
+                    <p class="text-sm text-slate-300">
+                        Sartre parte de un análisis del Ser y distingue en él tres grandes regiones ontológicas que articulan la realidad humana:
+                    </p>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2">
+                        <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-2 relative group hover:border-sena-600 transition-all">
+                            <h4 class="font-bold text-sena-600 text-sm">Lo EN-SÍ (L'en-soi)</h4>
+                            <p class="text-xs text-slate-300">El ser de las cosas. Es estático, invariable, pleno y compacto. No posee conciencia ni posibilidad de cambio interno. <span class="text-amber-400 font-semibold italic">"Está condenado a ser lo que es."</span></p>
+                        </div>
+                        <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-2 hover:border-sena-600 transition-all">
+                            <h4 class="font-bold text-sena-600 text-sm">El PARA-SÍ (Le pour-soi)</h4>
+                            <p class="text-xs text-slate-300">La realidad humana. Es pura conciencia, un <span class="text-amber-400 font-semibold italic">"junco pensante"</span> que tiene la nada en su meollo y se interroga constantemente sobre sí mismo. Proyecta un futuro inventado.</p>
+                        </div>
+                        <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-2 hover:border-sena-600 transition-all">
+                            <h4 class="font-bold text-sena-600 text-sm">El PARA-OTRO (L'autrui)</h4>
+                            <p class="text-xs text-slate-300">El infierno son los demás. La mirada ajena me descubre mi ser, me objetiviza y me despoja de mi pura libertad, intentando someter mi subjetividad a su horizonte.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pestaña 2: Mala Fe vs. Angustia -->
+                <div id="panel-tab2" class="space-y-4 hidden" role="tabpanel" aria-labelledby="btn-tab2">
+                    <h3 class="text-lg font-bold text-slate-200">La Paradoja de la Libertad Humana</h3>
+                    <p class="text-sm text-slate-300">
+                        Al carecer de un Dios que actúe como principio rector y ordenación de la realidad, el hombre se descubre desamparado y libre de manera ilimitada. Esto da lugar a dos actitudes cruciales:
+                    </p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
+                        <div class="bg-red-950/20 p-5 rounded-xl border border-red-900/40 space-y-2">
+                            <div class="flex items-center gap-2">
+                                <span class="text-red-500 font-bold">⚠️</span>
+                                <h4 class="font-bold text-red-400 text-sm">La Mala Fe (Mauvaise foi)</h4>
+                            </div>
+                            <p class="text-xs text-slate-300 leading-relaxed">
+                                Es el intento cobarde de eludir la pesada condición humana y refugiarse en el determinismo. Ocurre cuando nos asimos a excusas externas: <span class="italic">"Yo soy celoso porque nací con este carácter"</span>, pretendiendo ser entes cerrados (en-sí) en vez de libertades absolutas.
+                            </p>
+                        </div>
+                        <div class="bg-sena-600/5 p-5 rounded-xl border border-sena-600/30 space-y-2">
+                            <div class="flex items-center gap-2">
+                                <span class="text-sena-600 font-bold">⚡</span>
+                                <h4 class="font-bold text-sena-600 text-sm">La Angustia (Angoisse)</h4>
+                            </div>
+                            <p class="text-xs text-slate-300 leading-relaxed">
+                                El verdadero dato inmediato de nuestra libertad. Es la dolorosa lucidez que sobreviene al comprender que somos nosotros quienes sostenemos en el ser todos los valores, y que decidimos sobre el mundo solos, sin justificación ni excusa.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pestaña 3: Acción vs. Desvelamiento (Grounded Text Integration) -->
+                <div id="panel-tab3" class="space-y-4 hidden" role="tabpanel" aria-labelledby="btn-tab3">
+                    <h3 class="text-lg font-bold text-slate-200">Las Dos Manifestaciones de la Libertad</h3>
+                    <p class="text-sm text-slate-300">
+                        La investigación contemporánea (como los aportes de Yanina Maribel Lo Feudo) identifica que la libertad en Sartre no es unidireccional, sino que se manifiesta bajo dos vertientes según la situación:
+                    </p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
+                        <div class="bg-slate-900 p-5 rounded-xl border border-slate-800 space-y-2">
+                            <h4 class="font-bold text-amber-500 text-sm">1. La Acción Nihilizadora</h4>
+                            <span class="text-[10px] bg-amber-500/10 text-amber-500 px-2 py-0.5 rounded-full font-bold">Desarrollado en "El Ser y la Nada"</span>
+                            <p class="text-xs text-slate-300 leading-relaxed pt-1">
+                                Es una fuerza eminentemente **negativa**. La libertad actúa distanciándose de la positividad de lo dado (lo en-sí), captando una "falta" o imperfección en el presente y proyectando fines imaginarios que aún no existen en el mundo real.
+                            </p>
+                        </div>
+                        <div class="bg-slate-900 p-5 rounded-xl border border-slate-800 space-y-2">
+                            <h4 class="font-bold text-emerald-500 text-sm">2. El Desvelamiento del Ser</h4>
+                            <span class="text-[10px] bg-emerald-500/10 text-emerald-500 px-2 py-0.5 rounded-full font-bold">Desarrollado en "Verdad y Existencia"</span>
+                            <p class="text-xs text-slate-300 leading-relaxed pt-1">
+                                Un movimiento de carácter **afirmativo**. La libertad asume la materialidad del Ser y actúa iluminando y desvelando la verdad histórica del entorno. El coeficiente de adversidad del mundo se transforma aquí en una exigencia cooperativa.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recurso Visual de Síntesis Ontológica (Infografía) -->
+            <div class="bg-slate-950 border border-slate-800 rounded-2xl p-6 space-y-4 bg-card-contrast">
+                <div class="flex items-center gap-2.5 text-emerald-500">
+                    <span class="text-xl" aria-hidden="true">🖼️</span>
+                    <h3 class="text-md font-bold text-slate-200">Sartre: La Paradoja de ser Libre</h3>
+                </div>
+                <p class="text-xs text-slate-300 leading-relaxed">
+                    Antes de comenzar la evaluación formativa y el simulador de decisiones, examina detenidamente este esquema conceptual. Ilustra la tensión entre el <span class="text-amber-400 font-semibold">En-sí (facticidad)</span> y el <span class="text-emerald-400 font-semibold">Para-sí (subjetividad radical)</span> detallada en la investigación de Sonia Picado Sotela.
+                </p>
+                <div class="relative overflow-hidden rounded-xl border border-slate-800 bg-slate-900/40 p-2 flex justify-center items-center">
+                    <img 
+                        src="IMAGEN\Sartre__Paradoja_de_ser_Libre.png" 
+                        alt="Infografía de la Paradoja de ser Libre de Jean-Paul Sartre, ilustrando las regiones del Ser en tensión dinámica." 
+                        class="max-w-full h-auto rounded-lg shadow-lg hover:scale-[1.01] transition-transform duration-300"
+                        onerror="this.onerror=null; this.src='https://placehold.co/800x450/0f172a/16a34a?text=Sartre:+Paradoja+de+ser+Libre';"
+                    />
+                </div>
+                <figcaption class="text-center text-[10px] text-slate-500 italic">
+                    Figura 1: Representación de la libertad situada en Sartre. Referencia: "Sartre: Libertad" (Picado Sotela & Lo Feudo).
+                </figcaption>
+            </div>
+
+            <!-- ================= EVALUACIÓN FORMATIVA INTEGRADA (Cuestionario Automatizado) ================= -->
+            <div class="bg-slate-950 border-2 border-sena-600/30 rounded-2xl p-6 space-y-6 bg-card-contrast">
+                <div class="border-b border-slate-800 pb-3 flex justify-between items-center">
+                    <div>
+                        <span class="text-[10px] uppercase font-bold text-sena-600 tracking-widest block">Evaluación Formativa</span>
+                        <h3 class="text-md font-bold text-slate-200">Cuestionario Automatizado de Conceptuación</h3>
+                    </div>
+                    <!-- Indicador ARIA de Estado -->
+                    <div id="formative-status-pill" class="text-xs bg-slate-900 text-slate-400 border border-slate-800 px-3 py-1 rounded-full" role="status" aria-live="polite">
+                        Progreso: 0 de 3
+                    </div>
+                </div>
+
+                <!-- Contenedor del Cuestionario Formativo -->
+                <div id="formative-quiz-container" class="space-y-6">
+                    <!-- Pregunta 1 -->
+                    <div class="bg-slate-900/40 p-4 rounded-xl border border-slate-800 space-y-3" id="formative-q1-block">
+                        <label id="lbl-formative-q1" class="text-xs font-bold text-slate-300 tracking-wide block">
+                            Pregunta 1: En la ontología de Sartre, ¿cuál de las siguientes opciones define fielmente la región del "Ser en-sí" (l'en-soi)?
+                        </label>
+                        <div class="grid grid-cols-1 gap-2" role="radiogroup" aria-labelledby="lbl-formative-q1">
+                            <button onclick="checkFormative(1, 0, this)" class="formative-opt w-full text-left bg-slate-950 hover:bg-slate-850 p-3 rounded-lg text-xs border border-slate-800 transition-all focus-visible">
+                                A) El ser que es pura conciencia, vacío interno, autoconstitución y libertad de proyección.
+                            </button>
+                            <button onclick="checkFormative(1, 1, this)" class="formative-opt w-full text-left bg-slate-950 hover:bg-slate-850 p-3 rounded-lg text-xs border border-slate-800 transition-all focus-visible">
+                                B) El ser de las cosas: compacto, pleno, estático, invariable e impenetrable, carente de pasado y futuro.
+                            </button>
+                            <button onclick="checkFormative(1, 2, this)" class="formative-opt w-full text-left bg-slate-950 hover:bg-slate-850 p-3 rounded-lg text-xs border border-slate-800 transition-all focus-visible">
+                                C) La mirada ajena que me descubre mi propio ser en el mundo y limita mi libre albedrío.
+                            </button>
+                        </div>
+                        <!-- Retroalimentación inmediata de la pregunta 1 -->
+                        <div id="formative-feedback-1" class="hidden mt-2 p-3 rounded-lg text-xs" aria-live="polite"></div>
+                    </div>
+
+                    <!-- Pregunta 2 -->
+                    <div class="bg-slate-900/40 p-4 rounded-xl border border-slate-800 space-y-3 hidden" id="formative-q2-block">
+                        <label id="lbl-formative-q2" class="text-xs font-bold text-slate-300 tracking-wide block">
+                            Pregunta 2: ¿En qué consiste fundamentalmente la "Mala Fe" (mauvaise foi) de acuerdo con Sonia Picado Sotela?
+                        </label>
+                        <div class="grid grid-cols-1 gap-2" role="radiogroup" aria-labelledby="lbl-formative-q2">
+                            <button onclick="checkFormative(2, 0, this)" class="formative-opt w-full text-left bg-slate-950 hover:bg-slate-850 p-3 rounded-lg text-xs border border-slate-800 transition-all focus-visible">
+                                A) En un sentimiento de asco y náusea ante la absurda gratuidad de la existencia humana.
+                            </button>
+                            <button onclick="checkFormative(2, 1, this)" class="formative-opt w-full text-left bg-slate-950 hover:bg-slate-850 p-3 rounded-lg text-xs border border-slate-800 transition-all focus-visible">
+                                B) En un intento de eludir la angustia refugiándonos en excusas deterministas y tratándonos a nosotros mismos como si fuéramos un "en-sí" (cosa).
+                            </button>
+                            <button onclick="checkFormative(2, 2, this)" class="formative-opt w-full text-left bg-slate-950 hover:bg-slate-850 p-3 rounded-lg text-xs border border-slate-800 transition-all focus-visible">
+                                C) En una rebelión absoluta contra la existencia de toda regla de moral social.
+                            </button>
+                        </div>
+                        <div id="formative-feedback-2" class="hidden mt-2 p-3 rounded-lg text-xs" aria-live="polite"></div>
+                    </div>
+
+                    <!-- Pregunta 3 -->
+                    <div class="bg-slate-900/40 p-4 rounded-xl border border-slate-800 space-y-3 hidden" id="formative-q3-block">
+                        <label id="lbl-formative-q3" class="text-xs font-bold text-slate-300 tracking-wide block">
+                            Pregunta 3: Según Yanina Maribel Lo Feudo, ¿cuál es el carácter constitutivo del "desvelamiento del ser" como manifestación de la libertad?
+                        </label>
+                        <div class="grid grid-cols-1 gap-2" role="radiogroup" aria-labelledby="lbl-formative-q3">
+                            <button onclick="checkFormative(3, 0, this)" class="formative-opt w-full text-left bg-slate-950 hover:bg-slate-850 p-3 rounded-lg text-xs border border-slate-800 transition-all focus-visible">
+                                A) Un movimiento negativo de carácter nihilizador que busca ignorar la existencia del pasado.
+                            </button>
+                            <button onclick="checkFormative(3, 1, this)" class="formative-opt w-full text-left bg-slate-950 hover:bg-slate-850 p-3 rounded-lg text-xs border border-slate-800 transition-all focus-visible">
+                                B) Un movimiento afirmativo en el que la libertad asume la materialidad del Ser para iluminarlo y cooperar con el coeficiente de adversidad.
+                            </button>
+                            <button onclick="checkFormative(3, 2, this)" class="formative-opt w-full text-left bg-slate-950 hover:bg-slate-850 p-3 rounded-lg text-xs border border-slate-800 transition-all focus-visible">
+                                C) El rechazo a asumir la soledad radical y buscar consuelo moral en el prójimo.
+                            </button>
+                        </div>
+                        <div id="formative-feedback-3" class="hidden mt-2 p-3 rounded-lg text-xs" aria-live="polite"></div>
+                    </div>
+                </div>
+
+                <!-- Pantalla de Resumen Temático (Evaluación Diferitada y de Estado - ARIA 4.1.3) -->
+                <div id="formative-summary-card" class="hidden bg-slate-900 border border-slate-800 rounded-xl p-5 space-y-4">
+                    <div class="flex items-center gap-2 text-sena-600 font-bold text-sm">
+                        <span>📊</span>
+                        <span>Resumen de Evaluación Formativa y Prescripción de Apoyo</span>
+                    </div>
+                    <p class="text-xs text-slate-300">
+                        A continuación, se detalla tu desempeño en los conceptos clave abordados en la teoría. Con el fin de asegurar el éxito en la aplicación del Micro 3, te aconsejamos repasar las lecturas sugeridas para cada concepto en el que hayas fallado:
+                    </p>
+                    <div class="space-y-3" id="formative-summary-list">
+                        <!-- Se poblará dinámicamente con las fallas del aprendiz -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Botones de Navegación del Microaprendizaje -->
+            <div class="flex justify-between items-center pt-4">
+                <button onclick="goToMicro(1)" class="bg-slate-800 hover:bg-slate-700 text-slate-300 text-sm px-6 py-2.5 rounded-xl transition-all border border-slate-700 focus-visible">
+                    Atrás: El Reto
+                </button>
+                <button onclick="validateAndGoToMicro3()" class="bg-sena-600 hover:bg-sena-700 text-white text-sm font-bold px-6 py-2.5 rounded-xl transition-all shadow-lg shadow-sena-600/20 focus-visible">
+                    Siguiente: La Aplicación &rarr;
+                </button>
+            </div>
+        </section>
+
+        <!-- ================= MICRO 3: LA APLICACIÓN Y TOMA DE DECISIONES (10 minutos) ================= -->
+        <!-- Objetivo Pedagógico: Ofrecer oportunidad de desempeño real e interacción práctica (Momento 6 de Gagné) -->
+        <section id="micro3" class="space-y-6 transition-all duration-300 hidden">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border-b border-slate-800 pb-4">
+                <div>
+                    <span class="text-xs font-bold text-sena-600 uppercase tracking-widest">Fase de Transferencia Práctica</span>
+                    <h2 class="text-2xl font-black text-slate-100 md:text-3xl">Micro 3: Simulador de Decisiones Existenciales</h2>
+                </div>
+                <div class="bg-sena-600/10 text-sena-600 text-xs px-3 py-1.5 rounded-full border border-sena-600/20 font-bold flex items-center gap-1.5">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    Duración recomendada: 10 Minutos
+                </div>
+            </div>
+
+            <!-- Explicación de la tarea interactiva -->
+            <div class="bg-slate-950 border border-slate-800 p-5 rounded-2xl space-y-2 bg-card-contrast">
+                <h3 class="text-md font-bold text-slate-200">Instrucciones del Simulador:</h3>
+                <p class="text-sm text-slate-300">
+                    Sartre argumenta que la libertad no se ejerce en el vacío del sueño, sino en situación frente a la facticidad de lo real. A continuación, guiarás las decisiones de **Diana**, una aprendiza de Automatización Industrial del SENA ante un conflicto productivo. Tus decisiones acumulan puntos de Experiencia Global (XP). ¡Elige con lucidez existencial!
+                </p>
+            </div>
+
+            <!-- Contenedor del Simulador Existencial Integrado -->
+            <div id="sim-container" class="bg-slate-950 border border-slate-800 rounded-2xl p-6 space-y-6 relative bg-card-contrast">
+                
+                <!-- Pantalla del Escenario -->
+                <div id="sim-scenario" class="space-y-4">
+                    <div class="flex justify-between items-center text-xs text-sena-600 font-bold uppercase tracking-wider">
+                        <span id="sim-step-text">Fase 1: Dilema de la Automatización</span>
+                        <span id="sim-score-badge" class="bg-sena-600/10 px-2 py-0.5 rounded-md border border-sena-600/30">Diana: Desamparo Tecnológico</span>
+                    </div>
+                    
+                    <div class="border-l-4 border-sena-600 pl-4 py-1">
+                        <p class="text-sm font-semibold text-slate-200" id="scenario-text">
+                            Diana descubre que el algoritmo de inteligencia artificial que está programando para la planta industrial automatizada de su centro de entrenamiento desplazará a 15 operarios de línea, reduciendo a estos operarios a meros "instrumentos u objetos de repuesto" (reduciéndolos a la categoría de en-sí). Su supervisor le dice: "El desarrollo de la técnica es imparable y tú no puedes hacer nada frente a la inminencia histórica."
+                        </p>
+                    </div>
+
+                    <!-- Opciones Dinámicas del Simulador (Basadas en toma de decisiones críticas, no memoria) -->
+                    <div class="space-y-3 pt-2" id="sim-options">
+                        <button onclick="makeDecision(1)" class="w-full text-left bg-slate-900 hover:bg-slate-850 p-4 rounded-xl border border-slate-800 hover:border-sena-600 transition-all text-sm flex justify-between items-center group focus-visible">
+                            <span>A) Someterse a la orden del supervisor. Después de todo, el progreso tecnológico es una fuerza determinante externa de la cual no puedo ser culpable.</span>
+                            <span class="text-xs text-slate-500 group-hover:text-sena-600 font-bold">Elegir &rarr;</span>
+                        </button>
+                        <button onclick="makeDecision(2)" class="w-full text-left bg-slate-900 hover:bg-slate-850 p-4 rounded-xl border border-slate-800 hover:border-sena-600 transition-all text-sm flex justify-between items-center group focus-visible">
+                            <span>B) Rechazar la justificación del supervisor. Comprender que no hay determinismo técnico y que Diana es la única responsable moral por las consecuencias humanas del software que ella decide firmar.</span>
+                            <span class="text-xs text-slate-500 group-hover:text-sena-600 font-bold">Elegir &rarr;</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Pantalla de Retroalimentación del Simulador (Inicialmente Oculta) -->
+                <div id="sim-feedback" class="hidden space-y-4">
+                    <div class="p-4 rounded-xl text-sm" id="feedback-bg">
+                        <h4 class="font-bold text-base mb-2" id="feedback-title">Análisis de tu Decisión:</h4>
+                        <p id="feedback-text" class="leading-relaxed"></p>
+                    </div>
+                    <button onclick="nextScenarioStep()" class="bg-sena-600 hover:bg-sena-700 text-white text-sm font-bold px-6 py-2.5 rounded-xl transition-all focus-visible">
+                        Avanzar en el Escenario
+                    </button>
+                </div>
+            </div>
+
+            <!-- Botones de Navegación del Microaprendizaje -->
+            <div class="flex justify-between items-center pt-4">
+                <button onclick="goToMicro(2)" class="bg-slate-800 hover:bg-slate-700 text-slate-300 text-sm px-6 py-2.5 rounded-xl transition-all border border-slate-700 focus-visible">
+                    Atrás: El Contenido
+                </button>
+                <button id="btn-goto-micro4" onclick="goToMicro(4)" class="hidden bg-sena-600 hover:bg-sena-700 text-white text-sm font-bold px-6 py-2.5 rounded-xl transition-all shadow-lg shadow-sena-600/20 focus-visible">
+                    Siguiente: Certificación &rarr;
+                </button>
+            </div>
+        </section>
+
+        <!-- ================= MICRO 4: EVALUACIÓN INTEGRADORA Y CERTIFICACIÓN (5 minutos) ================= -->
+        <!-- Objetivos Pedagógicos: Evaluar el desempeño, proporcionar feedback inmediato y mejorar la retención/transferencia (Momentos de Gagné 7, 8 y 9) -->
+        <section id="micro4" class="space-y-6 transition-all duration-300 hidden">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border-b border-slate-800 pb-4">
+                <div>
+                    <span class="text-xs font-bold text-sena-600 uppercase tracking-widest">Fase de Certificación de Competencia</span>
+                    <h2 class="text-2xl font-black text-slate-100 md:text-3xl">Micro 4: Valoración Final LCH 001</h2>
+                </div>
+                <div class="bg-sena-600/10 text-sena-600 text-xs px-3 py-1.5 rounded-full border border-sena-600/20 font-bold flex items-center gap-1.5">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    Duración recomendada: 5 Minutos
+                </div>
+            </div>
+
+            <!-- Presentación del Instrumento de Evaluación LCH 001 -->
+            <div class="bg-slate-950 border border-slate-800 rounded-2xl p-6 space-y-6 bg-card-contrast">
+                <div class="flex items-center gap-3">
+                    <span class="text-2xl" aria-hidden="true">📋</span>
+                    <div>
+                        <h3 class="text-md font-bold text-slate-200">SENA LCH 001: Lista de Chequeo de Desempeño y Producto</h3>
+                        <p class="text-xs text-slate-400">Verifica los criterios de competencia logrados a lo largo de esta microsesión.</p>
+                    </div>
+                </div>
+
+                <div class="space-y-3" role="group" aria-label="Criterios del Instrumento LCH 001">
+                    <div class="flex items-start gap-3 p-3 bg-slate-900/60 rounded-xl border border-slate-800">
+                        <input type="checkbox" id="chk-crit1" disabled class="mt-1 h-4 w-4 text-sena-600 focus:ring-sena-500 border-slate-700 bg-slate-950 rounded">
+                        <label for="chk-crit1" class="text-xs text-slate-300">
+                            <strong>Criterio 1 (Diagnóstico):</strong> El aprendiz completó la valoración inicial de sus saberes previos mediante el análisis del Dilema de Mateo.
+                        </label>
+                    </div>
+                    <div class="flex items-start gap-3 p-3 bg-slate-900/60 rounded-xl border border-slate-800">
+                        <input type="checkbox" id="chk-crit2" disabled class="mt-1 h-4 w-4 text-sena-600 focus:ring-sena-500 border-slate-700 bg-slate-950 rounded">
+                        <label for="chk-crit2" class="text-xs text-slate-300">
+                            <strong>Criterio 2 (Formativo):</strong> El aprendiz completó el cuestionario interactivo de conceptuación superando con honestidad las dificultades teóricas.
+                        </label>
+                    </div>
+                    <div class="flex items-start gap-3 p-3 bg-slate-900/60 rounded-xl border border-slate-800">
+                        <input type="checkbox" id="chk-crit3" disabled class="mt-1 h-4 w-4 text-sena-600 focus:ring-sena-500 border-slate-700 bg-slate-950 rounded">
+                        <label for="chk-crit3" class="text-xs text-slate-300">
+                            <strong>Criterio 3 (Producto/Simulación):</strong> El aprendiz guió la toma de decisiones críticas en el Simulador de Diana en base a las manifestaciones de libertad y ontología de Sartre.
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Botón de Certificación de Competencia -->
+                <div class="pt-4 text-center">
+                    <button id="btn-request-badge" onclick="claimBadge()" class="bg-sena-600 hover:bg-sena-700 text-white font-black text-sm px-8 py-3 rounded-2xl transition-all shadow-xl shadow-sena-600/20 w-full sm:w-auto focus-visible">
+                        Evaluar Desempeño y Reclamar Insignia
+                    </button>
+                </div>
+            </div>
+
+            <!-- Botones de Navegación del Microaprendizaje -->
+            <div class="flex justify-between items-center pt-4">
+                <button onclick="goToMicro(3)" class="bg-slate-800 hover:bg-slate-700 text-slate-300 text-sm px-6 py-2.5 rounded-xl transition-all border border-slate-700 focus-visible">
+                    Atrás: La Aplicación
+                </button>
+                <div class="text-xs text-slate-500 font-bold">
+                    Código de Registro: LCH-001-SARTRE
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Modal de la Insignia Digital de Competencia Técnica (Oculto inicialmente) -->
+    <div id="badgeModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4 z-50 hidden" role="dialog" aria-labelledby="modalTitle" aria-describedby="modalDesc">
+        <div class="bg-slate-900 border-2 border-amber-500 rounded-3xl p-8 max-w-sm w-full text-center space-y-6 shadow-2xl relative overflow-hidden bg-card-contrast">
+            <!-- Efecto de partículas de luz decorativas -->
+            <div class="absolute inset-0 bg-radial-gradient from-amber-500/10 to-transparent pointer-events-none"></div>
+            
+            <div class="flex justify-center">
+                <div class="bg-amber-500/10 border-2 border-amber-500 p-6 rounded-full inline-block animate-bounce">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-amber-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
+                    </svg>
+                </div>
+            </div>
+
+            <div class="space-y-2">
+                <span id="badge-approved-text" class="text-[10px] bg-amber-500/15 text-amber-500 px-3 py-1 rounded-full font-black uppercase tracking-widest">Aprobado con 100% de Aciertos</span>
+                <h3 id="modalTitle" class="text-xl font-black text-slate-100">Insignia: Autenticidad Existencial</h3>
+                <p id="modalDesc" class="text-xs text-slate-400">Has resuelto los dilemas ontológicos y éticos, dominando con total honestidad intelectual el pensamiento de Jean-Paul Sartre.</p>
+            </div>
+
+            <div class="bg-slate-950/80 p-4 rounded-2xl border border-slate-800 text-xs text-slate-300">
+                Aprobado por el <span class="font-bold text-sena-600">Comité Pedagógico SENA</span> para fortalecer tu proyecto de vida autónomo.
+            </div>
+
+            <button onclick="closeBadgeModal()" class="w-full bg-amber-500 hover:bg-amber-600 text-slate-950 font-black py-3 rounded-2xl transition-all shadow-lg focus-visible">
+                ¡Reclamar e Incorporar a mi Portafolio!
+            </button>
+        </div>
+    </div>
+
+    <!-- Pie de página institucional -->
+    <footer class="bg-slate-950 border-t border-slate-800 py-6 text-center text-xs text-slate-500" role="contentinfo">
+        <p>&copy; 2026 Servicio Nacional de Aprendizaje (SENA). Guía de Aprendizaje interactiva basada en Sonia Picado Sotela y Yanina Maribel Lo Feudo.</p>
+        <p class="mt-1">Diseñado para la formación integral en competencias éticas, autonomía y filosofía del ser.</p>
+    </footer>
+
+    <script>
+        /*
+          ======================================================================
+          SISTEMA DE LÓGICA PEDAGÓGICA Y TÉCNICA DEL ARCHIVO INTERACTIVO (JS)
+          ======================================================================
+          Garantiza el flujo del microaprendizaje, el control de accesibilidad,
+          la retroalimentación inmediata, diferida y la entrega de insignias.
+        */
+
+        // Estado Global del Aprendiz (Sostiene el progreso interactivo de la SPA)
+        const apprenticeState = {
+            currentMicro: 1,
+            points: 0,
+            hasSolvedDiagnostic: false,
+            contrastMode: 'dark',
+            
+            // Estado de la Evaluación Formativa (Micro 2)
+            formativeAnswers: {
+                1: null,
+                2: null,
+                3: null
+            },
+            formativeKeys: {
+                1: 1, // B) El ser de las cosas: compacto...
+                2: 1, // B) En un intento de eludir la angustia...
+                3: 1  // B) Un movimiento afirmativo...
+            },
+            
+            // Estado del Simulador de Decisiones (Micro 3)
+            simStep: 1,
+            simHistory: [],
+            
+            // Criterios Instrumento LCH 001
+            lch1: false,
+            lch2: false,
+            lch3: false
+        };
+
+        // Banco de Explicaciones para Retroalimentación Inmediata de la Evaluación Formativa
+        const formativeExplanations = {
+            1: {
+                correct: "¡Excelente acierto! En la página 303 de Sonia Picado Sotela ('Sartre y la Libertad'), se define lo en-sí como invariable, compacto, impenetrable, cerrado en su ser y determinado.",
+                incorrect: "Incorrecto. Lo en-sí de Sartre es el ser de las cosas, estático y pleno. No es pura conciencia (eso corresponde al para-sí) ni es la mirada ajena (eso es el para-otro)."
+            },
+            2: {
+                correct: "¡Excelente! La Mala Fe consiste precisamente en huir de la libertad y de la angustia moral, intentando asirnos al determinismo externo como si fuéramos una cosa dócil o servil.",
+                incorrect: "Incorrecto. La mala fe no se asocia al obrar con dolo ni es un sentimiento de náusea. Es una mentira a sí mismo donde pretendemos tener una esencia predefinida para excusar decisiones."
+            },
+            3: {
+                correct: "¡Fantástico! Yanina Maribel Lo Feudo en 'Dos manifestaciones de la libertad' indica que en Verdad y Existencia, la libertad no solo destruye o niega, sino que afirma iluminando el ser e integrando el entorno cooperativamente.",
+                incorrect: "Incorrecto. El desvelamiento es afirmativo y cooperativo; no se trata de negar la facticidad ni de refugiarse en el solipsismo existencial."
+            }
+        };
+
+        // Método de inicialización
+        window.onload = function() {
+            updateXP(0);
+        }
+
+        // Sistema Single Page App (SPA) - Navegación entre micros
+        function goToMicro(microNum) {
+            // Guardar progreso visual en stepper
+            document.querySelectorAll('nav button').forEach(btn => {
+                btn.classList.remove('text-sena-600', 'bg-sena-600/10', 'border-sena-600/30', 'font-bold');
+                btn.classList.add('text-slate-400', 'hover:text-slate-100', 'hover:bg-slate-800');
+            });
+
+            const activeBtn = document.getElementById(`step${microNum}`);
+            if (activeBtn) {
+                activeBtn.classList.add('text-sena-600', 'bg-sena-600/10', 'border-sena-600/30', 'font-bold');
+                activeBtn.classList.remove('text-slate-400', 'hover:text-slate-100');
+            }
+
+            // Cambiar visibilidad de secciones
+            document.querySelectorAll('main > section').forEach(sec => {
+                sec.classList.add('hidden');
+                sec.classList.remove('block');
+            });
+
+            document.getElementById(`micro${microNum}`).classList.remove('hidden');
+            document.getElementById(`micro${microNum}`).classList.add('block');
+
+            // Actualizar progreso general de la sesión de 30 minutos
+            const percentages = { 1: 25, 2: 50, 3: 75, 4: 100 };
+            document.getElementById('sessionProgressBar').style.width = `${percentages[microNum]}%`;
+            document.getElementById('progressPercent').innerText = `${percentages[microNum]}%`;
+
+            apprenticeState.currentMicro = microNum;
+        }
+
+        // Sistema de Accesibilidad: Alternar Alto Contraste (Cumple WCAG 2.1)
+        function toggleHighContrast() {
+            const body = document.body;
+            body.classList.toggle('high-contrast');
+            
+            if (body.classList.contains('high-contrast')) {
+                apprenticeState.contrastMode = 'high';
+                document.getElementById('contrastBtn').classList.add('bg-yellow-500', 'text-slate-950', 'font-bold');
+            } else {
+                apprenticeState.contrastMode = 'dark';
+                document.getElementById('contrastBtn').classList.remove('bg-yellow-500', 'text-slate-950', 'font-bold');
+            }
+        }
+
+        // Sistema de Puntos Globales
+        function updateXP(pointsToAdd) {
+            apprenticeState.points += pointsToAdd;
+            document.getElementById('globalPoints').innerText = apprenticeState.points;
+        }
+
+        // Control de Pestañas Interactivas (Micro 2)
+        function switchTab(tabId) {
+            // Ocultar todos los paneles
+            document.querySelectorAll('[role="tabpanel"]').forEach(panel => {
+                panel.classList.add('hidden');
+            });
+            // Remover estilos activos de pestañas
+            document.querySelectorAll('[role="tab"]').forEach(btn => {
+                btn.classList.remove('border-sena-600', 'text-sena-600', 'font-bold');
+                btn.classList.add('border-transparent', 'text-slate-400', 'font-medium');
+                btn.setAttribute('aria-selected', 'false');
+            });
+
+            // Mostrar panel y aplicar estilos a pestaña activa
+            document.getElementById(`panel-${tabId}`).classList.remove('hidden');
+            const activeBtn = document.getElementById(`btn-${tabId}`);
+            activeBtn.classList.remove('border-transparent', 'text-slate-400', 'font-medium');
+            activeBtn.classList.add('border-sena-600', 'text-sena-600', 'font-bold');
+            activeBtn.setAttribute('aria-selected', 'true');
+
+            // Recompensar exploración de teoría interactiva
+            if (!apprenticeState[`explored_${tabId}`]) {
+                apprenticeState[`explored_${tabId}`] = true;
+                updateXP(10);
+            }
+        }
+
+        // ================= LÓGICA DE EVALUACIÓN DIAGNÓSTICA (MICRO 1) =================
+        function submitDiagnostic(option) {
+            if (apprenticeState.hasSolvedDiagnostic) return;
+            apprenticeState.hasSolvedDiagnostic = true;
+
+            // Actualizar Criterio 1 del LCH 001
+            apprenticeState.lch1 = true;
+            document.getElementById('chk-crit1').checked = true;
+
+            const feedbackBox = document.getElementById('diagnostic-feedback');
+            feedbackBox.classList.remove('hidden');
+
+            let optionText = "";
+            let responseConcept = "";
+
+            if (option === 'A') {
+                optionText = "Opción A: Eludir la responsabilidad atribuyéndola a fuerzas ajenas.";
+                responseConcept = "Este enfoque representa conceptualmente lo que Sartre denomina **'Mala Fe'** (mauvaise foi): refugiarse en el determinismo para eludir la pesadumbre de elegir.";
+            } else if (option === 'B') {
+                optionText = "Opción B: Asumir la decisión y afrontar la angustia.";
+                responseConcept = "Este enfoque representa la **'Autenticidad'** existencial. Tomas conciencia de que dudar, dócilmente acatar o evadir son en sí elecciones tuyas.";
+            } else {
+                optionText = "Opción C: Postergar la acción creyendo neutralizar la postura.";
+                responseConcept = "Para Sartre, no elegir es ya una forma de elección. No actuar define un proyecto libre de omisión que igual carga consecuencias.";
+            }
+
+            // Retroalimentación neutral que agradece y asienta bases conceptuales
+            feedbackBox.innerHTML = `
+                <div class="space-y-2">
+                    <p class="font-bold text-amber-500">Sondeo Diagnóstico Completado Correctamente (0 XP)</p>
+                    <p><strong>Tu postura seleccionada:</strong> ${optionText}</p>
+                    <p class="italic text-slate-300">${responseConcept}</p>
+                    <p class="text-xs text-slate-400 pt-2 border-t border-slate-800">
+                        Gracias por tu participación. Este sondeo ha estimulado tu conocimiento previo. Continuemos al Micro 2 para estudiar la base ontológica y conceptual del existencialismo.
+                    </p>
+                </div>
+            `;
+            showCustomAlert("🏁 Diagnóstico Completado", "Se han registrado tus saberes previos. Avanza al Micro 2.");
+        }
+
+        // ================= LÓGICA DE EVALUACIÓN FORMATIVA (MICRO 2) =================
+        function checkFormative(questionNum, selectedIdx, element) {
+            // Impedir que se responda múltiples veces a la misma pregunta
+            if (apprenticeState.formativeAnswers[questionNum] !== null) return;
+            apprenticeState.formativeAnswers[questionNum] = selectedIdx;
+
+            const isCorrect = (selectedIdx === apprenticeState.formativeKeys[questionNum]);
+            const feedbackEl = document.getElementById(`formative-feedback-${questionNum}`);
+            const questionBlock = element.parentNode.parentNode;
+            
+            // Estilizar botón seleccionado
+            element.classList.remove('bg-slate-950', 'border-slate-800');
+            if (isCorrect) {
+                element.classList.add('bg-emerald-950/40', 'border-emerald-500', 'text-emerald-200');
+                feedbackEl.className = "mt-2 p-3 rounded-lg text-xs bg-emerald-950/40 border border-emerald-900/30 text-emerald-200 flex items-start gap-2";
+                feedbackEl.innerHTML = `
+                    <span class="text-emerald-500 font-bold">✔️ Correcto:</span>
+                    <span>${formativeExplanations[questionNum].correct}</span>
+                `;
+            } else {
+                element.classList.add('bg-red-950/40', 'border-red-500', 'text-red-200');
+                feedbackEl.className = "mt-2 p-3 rounded-lg text-xs bg-red-950/40 border border-red-900/30 text-red-200 flex items-start gap-2";
+                feedbackEl.innerHTML = `
+                    <span class="text-red-500 font-bold">❌ Error:</span>
+                    <span>${formativeExplanations[questionNum].incorrect}</span>
+                `;
+            }
+            feedbackEl.classList.remove('hidden');
+
+            // Inhabilitar resto de opciones en esta pregunta
+            const siblings = element.parentNode.querySelectorAll('button');
+            siblings.forEach(sib => {
+                if (sib !== element) {
+                    sib.disabled = true;
+                    sib.classList.add('opacity-40');
+                }
+            });
+
+            // Actualizar Contador de Estado (Criterio WCAG 4.1.3 - Mensaje de Estado)
+            let answeredCount = 0;
+            for (let q in apprenticeState.formativeAnswers) {
+                if (apprenticeState.formativeAnswers[q] !== null) answeredCount++;
+            }
+            
+            const statusPill = document.getElementById('formative-status-pill');
+            statusPill.innerText = `Progreso: ${answeredCount} de 3`;
+            
+            // Desbloquear secuencialmente la siguiente pregunta o mostrar resumen
+            if (questionNum === 1) {
+                setTimeout(() => {
+                    document.getElementById('formative-q2-block').classList.remove('hidden');
+                }, 1500);
+            } else if (questionNum === 2) {
+                setTimeout(() => {
+                    document.getElementById('formative-q3-block').classList.remove('hidden');
+                }, 1500);
+            } else if (questionNum === 3) {
+                // Generar Evaluación Diferida (Resumen de carga de resultados sin cambio de foco)
+                setTimeout(() => {
+                    generateDeferredSummary();
+                }, 1500);
+            }
+        }
+
+        function generateDeferredSummary() {
+            const summaryCard = document.getElementById('formative-summary-card');
+            const summaryList = document.getElementById('formative-summary-list');
+            summaryList.innerHTML = '';
+            
+            let allCorrect = true;
+            let failuresCount = 0;
+
+            // Revisar Pregunta 1
+            if (apprenticeState.formativeAnswers[1] !== apprenticeState.formativeKeys[1]) {
+                allCorrect = false;
+                failuresCount++;
+                summaryList.innerHTML += `
+                    <div class="p-3 bg-red-950/15 border border-red-900/30 rounded-lg text-xs text-red-300">
+                        <strong>⚠️ Debilidad en Ontología (Ser en-sí vs Para-sí):</strong> Se te dificulta diferenciar el ser invariable de las cosas (en-sí) frente a la libertad de la conciencia (para-sí).
+                        <span class="block mt-1 font-semibold text-slate-400">&rarr; Prescripción: Revisa la 'Pestaña 1. Las Regiones del Ser' del Micro 2 y la sección de la página 303 en Sonia Picado Sotela.</span>
+                    </div>
+                `;
+            } else {
+                summaryList.innerHTML += `
+                    <div class="p-3 bg-emerald-950/15 border border-emerald-900/30 rounded-lg text-xs text-emerald-300">
+                        <strong>✔️ Dominio de Ontología:</strong> Comprendes con rigurosidad las diferencias de las regiones ontológicas sartreanas.
+                    </div>
+                `;
+            }
+
+            // Revisar Pregunta 2
+            if (apprenticeState.formativeAnswers[2] !== apprenticeState.formativeKeys[2]) {
+                allCorrect = false;
+                failuresCount++;
+                summaryList.innerHTML += `
+                    <div class="p-3 bg-red-950/15 border border-red-900/30 rounded-lg text-xs text-red-300">
+                        <strong>⚠️ Dificultad en el concepto de Mala Fe (Mauvaise foi):</strong> Confundes los mecanismos de evasión moral y asimilación de excusas biológicas o sociales.
+                        <span class="block mt-1 font-semibold text-slate-400">&rarr; Prescripción: Reestudia la 'Pestaña 2. Mala Fe vs Angustia' y los análisis éticos del libro 'El Ser y la Nada' (Pág. 310 en Sonia Picado Sotela).</span>
+                    </div>
+                `;
+            } else {
+                summaryList.innerHTML += `
+                    <div class="p-3 bg-emerald-950/15 border border-emerald-900/30 rounded-lg text-xs text-emerald-300">
+                        <strong>✔️ Dominio del Concepto de Mala Fe:</strong> Identificas correctamente los trucos del determinismo que socavan la ética individual.
+                    </div>
+                `;
+            }
+
+            // Revisar Pregunta 3
+            if (apprenticeState.formativeAnswers[3] !== apprenticeState.formativeKeys[3]) {
+                allCorrect = false;
+                failuresCount++;
+                summaryList.innerHTML += `
+                    <div class="p-3 bg-red-950/15 border border-red-900/30 rounded-lg text-xs text-red-300">
+                        <strong>⚠️ Confusión en Manifestaciones de Libertad:</strong> Fallaste en comprender el concepto de 'desvelamiento' de la libertad afirmativa de posguerra.
+                        <span class="block mt-1 font-semibold text-slate-400">&rarr; Prescripción: Repasa la 'Pestaña 3. Acción vs Desvelamiento' y los aportes de Yanina Maribel Lo Feudo sobre 'Verdad y Existencia'.</span>
+                    </div>
+                `;
+            } else {
+                summaryList.innerHTML += `
+                    <div class="p-3 bg-emerald-950/15 border border-emerald-900/30 rounded-lg text-xs text-emerald-300">
+                        <strong>✔️ Dominio de Manifestaciones de Libertad:</strong> Reconoces con claridad la vertiente afirmativa que asume el ser como exigencia.
+                    </div>
+                `;
+            }
+
+            // Mostrar el panel de evaluación diferida
+            summaryCard.classList.remove('hidden');
+            
+            // Marcar Criterio 2 en LCH 001
+            apprenticeState.lch2 = true;
+            document.getElementById('chk-crit2').checked = true;
+
+            if (allCorrect) {
+                showCustomAlert("🎯 Cuestionario Superado con Éxito", "Has obtenido 3 de 3 aciertos teóricos. ¡Excelente desempeño!");
+                updateXP(100);
+            } else {
+                showCustomAlert("📊 Resumen de Resultados Listo", `Identificadas ${failuresCount} áreas de mejora. Se prescriben lecturas de apoyo.`);
+                updateXP(40);
+            }
+        }
+
+        // Forzar al aprendiz a completar el cuestionario interactivo de Micro 2 antes de seguir
+        function validateAndGoToMicro3() {
+            if (apprenticeState.formativeAnswers[1] === null || apprenticeState.formativeAnswers[2] === null || apprenticeState.formativeAnswers[3] === null) {
+                showCustomAlert("🔒 Microbloque Cerrado", "Por favor, completa las 3 preguntas del Cuestionario Formativo Automatizado para habilitar el Simulador.");
+                return;
+            }
+            goToMicro(3);
+        }
+
+        // ================= LÓGICA DEL SIMULADOR DE DECISIONES (MICRO 3) =================
+        function makeDecision(optionNum) {
+            const scenarioBlock = document.getElementById('sim-scenario');
+            const feedbackBlock = document.getElementById('sim-feedback');
+            const feedbackBg = document.getElementById('feedback-bg');
+            const feedbackTitle = document.getElementById('feedback-title');
+            const feedbackText = document.getElementById('feedback-text');
+
+            scenarioBlock.classList.add('hidden');
+            feedbackBlock.classList.remove('hidden');
+
+            if (apprenticeState.simStep === 1) {
+                if (optionNum === 1) {
+                    // Decisión de Mala Fe
+                    feedbackBg.className = "p-4 rounded-xl text-sm bg-red-950/40 border border-red-900/40 text-red-200";
+                    feedbackTitle.innerText = "❌ Opción de Mala Fe (Cobardía Moral y Determinismo)";
+                    feedbackText.innerText = "Diana elude su libertad absoluta refugiándose en la excusa de la inevitabilidad de la tecnología. Pretende asimilarse como un mero objeto cerrado (en-sí) para no soportar el peso de la culpa moral. Sartre refutaría esto: el software es tu elección y tú eres autora absoluta de las consecuencias laborales. Pierdes -15 XP.";
+                    updateXP(-15);
+                    apprenticeState.simHistory.push("Evasión Determinista (Mala Fe)");
+                } else {
+                    // Decisión Auténtica de Angustia
+                    feedbackBg.className = "p-4 rounded-xl text-sm bg-sena-600/10 border border-sena-600/30 text-emerald-200";
+                    feedbackTitle.innerText = "✅ Decisión Auténtica (Angustia y Responsabilidad)";
+                    feedbackText.innerText = "Diana asume de lleno que ella es autora moral del sistema y que no tiene excusas externas para escudarse en el 'supervisor' o la 'empresa'. Sostiene la angustia y acepta el desamparo existencial: cada línea de código es un acto libre. ¡Excelente juicio ontológico! Sumas +50 XP.";
+                    updateXP(50);
+                    apprenticeState.simHistory.push("Asunción Libre de Responsabilidad");
+                }
+            } else if (apprenticeState.simStep === 2) {
+                if (optionNum === 1) {
+                    // Manifestación afirmativa de la libertad (Desvelamiento cooperativo)
+                    feedbackBg.className = "p-4 rounded-xl text-sm bg-sena-600/10 border border-sena-600/30 text-emerald-200";
+                    feedbackTitle.innerText = "✅ Autenticidad: Libertad de Desvelamiento y Acción Cooperativa";
+                    feedbackText.innerText = "Diana asume la materialidad de la planta (facticidad) como una exigencia de cooperación. Desarrolla un plan de reconversión de los 15 operarios a analistas de automatización, desvelando una verdad en la que el trabajo técnico dignifica. Integra libertad y situación sin caer en fatalismos vacíos. ¡Perfecto! Sumas +80 XP.";
+                    updateXP(80);
+                    apprenticeState.simHistory.push("Desvelamiento y Cooperación con Facticidad");
+                } else {
+                    // Renuncia / Evasión de la situación
+                    feedbackBg.className = "p-4 rounded-xl text-sm bg-red-950/40 border border-red-900/40 text-red-200";
+                    feedbackTitle.innerText = "❌ Evasión: Negación Abstracta (Pasión Inútil)";
+                    feedbackText.innerText = "Diana decide apartarse de la situación, renunciando a la fábrica para desentenderse éticamente. Sartre advierte que intentar sustraerse de la situación no anula la libertad del contexto; solo traslada a Diana a una 'libertad para nada', abandonando la realidad a sus peores injusticias de manera resignada. Pierdes -20 XP.";
+                    updateXP(-20);
+                    apprenticeState.simHistory.push("Renuncia Abstracta");
+                }
+            }
+        }
+
+        function nextScenarioStep() {
+            const scenarioBlock = document.getElementById('sim-scenario');
+            const feedbackBlock = document.getElementById('sim-feedback');
+            
+            feedbackBlock.classList.add('hidden');
+            scenarioBlock.classList.remove('hidden');
+
+            if (apprenticeState.simStep === 1) {
+                apprenticeState.simStep = 2;
+                document.getElementById('sim-step-text').innerText = "Fase 2: Acción Situada de Diana";
+                document.getElementById('sim-score-badge').innerText = "Diana: Sosteniendo la Verdad";
+                document.getElementById('scenario-text').innerText = "Diana decide intervenir en la automatización industrial del centro. El supervisor presiona para liberar el algoritmo final mañana. ¿Qué acción libre de Diana conjuga con lucidez existencial su libertad técnica y la facticidad de la situación?";
+                
+                document.getElementById('sim-options').innerHTML = `
+                    <button onclick="makeDecision(1)" class="w-full text-left bg-slate-900 hover:bg-slate-850 p-4 rounded-xl border border-slate-800 hover:border-sena-600 transition-all text-sm flex justify-between items-center group focus-visible">
+                        <span>A) Planificar la automatización junto a los instructores SENA, estructurando un código abierto para capacitar y reconvertir a los 15 operarios en supervisores técnicos.</span>
+                        <span class="text-xs text-slate-500 group-hover:text-sena-600 font-bold">Elegir &rarr;</span>
+                    </button>
+                    <button onclick="makeDecision(2)" class="w-full text-left bg-slate-900 hover:bg-slate-850 p-4 rounded-xl border border-slate-800 hover:border-sena-600 transition-all text-sm flex justify-between items-center group focus-visible">
+                        <span>B) Desistir del proyecto de automatización por completo, renunciando a su cargo para refugiarse en el desinterés moral.</span>
+                        <span class="text-xs text-slate-500 group-hover:text-sena-600 font-bold">Elegir &rarr;</span>
+                    </button>
+                `;
+            } else {
+                // Finalizó el simulador de decisiones
+                apprenticeState.lch3 = true;
+                document.getElementById('chk-crit3').checked = true;
+
+                document.getElementById('sim-container').innerHTML = `
+                    <div class="text-center space-y-4 py-6">
+                        <span class="text-4xl" aria-hidden="true">🌟</span>
+                        <h4 class="text-lg font-bold text-slate-100">¡Simulación de Decisiones Finalizada!</h4>
+                        <p class="text-sm text-slate-300 max-w-md mx-auto">
+                            Has concluido el entrenamiento moral de Diana, aplicando la ontología del Para-sí y la asunción ética del desamparo laboral frente al determinismo tecnológico.
+                        </p>
+                        <div class="inline-block bg-slate-900 border border-slate-800 p-4 rounded-2xl text-left text-xs space-y-1">
+                            <span class="font-bold text-sena-600 block mb-1">Registro de Elecciones Tomadas:</span>
+                            <div>Fase 1: <span class="text-slate-300">${apprenticeState.simHistory[0]}</span></div>
+                            <div>Fase 2: <span class="text-slate-300">${apprenticeState.simHistory[1]}</span></div>
+                        </div>
+                        <div class="pt-4">
+                            <button onclick="goToMicro(4)" class="bg-sena-600 hover:bg-sena-700 text-white text-sm font-bold px-6 py-2.5 rounded-xl transition-all shadow-lg focus-visible">
+                                Ir al Micro de Certificación (LCH 001)
+                            </button>
+                        </div>
+                    </div>
+                `;
+                document.getElementById('btn-goto-micro4').classList.remove('hidden');
+            }
+        }
+
+        // ================= LÓGICA DE CERTIFICACIÓN E INSTRUMENTO LCH 001 (MICRO 4) =================
+        function claimBadge() {
+            // Verificar si cumple con los tres criterios obligatorios
+            if (!apprenticeState.lch1 || !apprenticeState.lch2 || !apprenticeState.lch3) {
+                showCustomAlert("⚠️ Instrumento Incompleto", "Asegúrate de haber completado la Evaluación Diagnóstica (Micro 1), la Evaluación Formativa (Micro 2) y el Simulador (Micro 3) para habilitar el cierre.");
+                return;
+            }
+
+            // Validar la excelencia del puntaje
+            const modal = document.getElementById('badgeModal');
+            const badgeText = document.getElementById('badge-approved-text');
+            
+            if (apprenticeState.points >= 150) {
+                badgeText.className = "text-[10px] bg-amber-500/15 text-amber-500 px-3 py-1 rounded-full font-black uppercase tracking-widest";
+                badgeText.innerText = `Aprobado con Excelencia: ${apprenticeState.points} XP`;
+                document.getElementById('modalTitle').innerText = "Insignia: Autenticidad Existencial";
+                document.getElementById('modalDesc').innerText = "Has roto definitivamente con las excusas de la mala fe y has dominado con total honestidad intelectual el pensamiento técnico-ético de Jean-Paul Sartre.";
+            } else {
+                badgeText.className = "text-[10px] bg-slate-500/15 text-slate-400 px-3 py-1 rounded-full font-black uppercase tracking-widest";
+                badgeText.innerText = `Aprobado Regular: ${apprenticeState.points} XP`;
+                document.getElementById('modalTitle').innerText = "Insignia: Iniciado Existencial";
+                document.getElementById('modalDesc').innerText = "Has completado la ruta formativa técnica, pero te aconsejamos repasar las prescripciones del Micro 2 para superar los determinismos con mayor puntaje de autenticidad.";
+            }
+
+            modal.classList.remove('hidden');
+        }
+
+        function closeBadgeModal() {
+            document.getElementById('badgeModal').classList.add('hidden');
+            showCustomAlert("💼 Logro Registrado", "Tu resultado ha sido archivado exitosamente bajo la Lista de Chequeo LCH 001 en tu portafolio del aprendiz.");
+        }
+
+        // Alertas Dinámicas del Sistema (Evitando alert nativo perjudicial para la UI)
+        function showCustomAlert(title, message) {
+            const alertBox = document.createElement('div');
+            alertBox.className = "fixed bottom-4 right-4 bg-slate-900 border-l-4 border-sena-600 p-4 rounded-r-xl shadow-2xl z-50 max-w-sm transition-all animate-pulse bg-card-contrast";
+            alertBox.innerHTML = `
+                <div class="flex flex-col gap-1">
+                    <span class="font-bold text-sm text-slate-200">${title}</span>
+                    <span class="text-xs text-slate-400 leading-relaxed">${message}</span>
+                </div>
+            `;
+            document.body.appendChild(alertBox);
+            setTimeout(() => alertBox.remove(), 4500);
+        }
+    </script>
+</body>
+</html>
